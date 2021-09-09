@@ -38,6 +38,13 @@
 </div>
 </div>
 </div>
+{% empty %}
+<p class="empty" style="
+    font-size: 48px;
+    text-align: center;
+    color: #a1aac1;
+">Go, Share us your quality thoughs</p>
+<img src="/network/img/low-poly-grid-haikei.svg">
 {% endfor %}
 {% include "network/pagination.html" with page=page_obj %}
 
