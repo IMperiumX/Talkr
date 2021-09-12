@@ -8,16 +8,16 @@
         <div class="tweet-header-info">
             {{post.author}} <a href="{% url 'user_detail' post.author %}"><span>@{{post.author}}</span></a><span>.
                 {{post.date_added|date:'l, F j'}}
-
             </span>
-
+            <hr>
             <p>{{post.body|linebreaks}}</p>
         </div>
     </div>
-    <div class="tweet-info-counts">
-        <div class="likes">
-            <div class="likes-count">
-                2.6k
+    <div>
+        <div class="tweet-info-counts">
+            <div class="likes">
+                <img data-id="{{post.id}}" id="post-like-{{post.id}}" class="liked" {% if not request.user in post.users_like.all %} data-is_liked="no" src="https://img.icons8.com/carbon-copy/100/000000/like--v2.png" {%else%} data-is_liked="yes" src="https://img.icons8.com/plasticine/100/000000/like.png" {%endif%} />
+                <span id="post-count-{{post.id}}">{{post.users_like.count}}</span>
             </div>
         </div>
     </div>
