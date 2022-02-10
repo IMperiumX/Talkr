@@ -1,27 +1,23 @@
 from itertools import chain
 
+from actions.utils import create_action
+from common.decorators import ajax_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import IntegrityError
-from django.views.decorators.csrf import csrf_exempt
+# Follow system packages.
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DeleteView, DetailView, ListView, UpdateView
 
-# Follow system packages.
-from django.http import HttpResponseRedirect, JsonResponse, Http404
-from django.views.decorators.http import require_POST
-from actions.utils import create_action
-from common.decorators import ajax_required
-from .models import Contact
-
 from .forms import CreatePostForm, ProfileEditForm, UserEditForm
-from .models import Post, Profile
+from .models import Contact, Post, Profile
 
 
 def login_view(request):
@@ -61,7 +57,8 @@ def register(request):
         confirmation = request.POST["confirmation"]
         if password != confirmation:
             return render(
-                request, "network/register.html", {"message": "Passwords must match."}
+                request, "network/register.html", {
+                    "message": "Passwords must match."}
             )
 
         # Attempt to create new user
@@ -75,7 +72,8 @@ def register(request):
         except IntegrityError:
             messages.error(request, "Error Creating your Account")
             return render(
-                request, "network/register.html", {"message": "Username already taken."}
+                request, "network/register.html", {
+                    "message": "Username already taken."}
             )
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
@@ -175,10 +173,12 @@ def user_follow(request):
         try:
             user = User.objects.get(id=user_id)
             if action == 'follow':
-                Contact.objects.get_or_create(user_from=request.user, user_to=user)
+                Contact.objects.get_or_create(
+                    user_from=request.user, user_to=user)
                 create_action(request.user, 'is following', user)
             else:
-                Contact.objects.filter(user_from=request.user, user_to=user).delete()
+                Contact.objects.filter(
+                    user_from=request.user, user_to=user).delete()
             return JsonResponse({'status': 'ok'})
         except User.DoesNotExist:
             return JsonResponse({'status': 'error'})

@@ -1,18 +1,19 @@
-from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
 from django.conf import settings
-from django.utils import timezone
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.urls import reverse
-
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.utils import timezone
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
-    photo = models.ImageField(default='default.png', upload_to='users/%Y/%m/%d/')
+    photo = models.ImageField(default='default.png',
+                              upload_to='users/%Y/%m/%d/')
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -38,7 +39,8 @@ class Post(models.Model):
     body = models.TextField(max_length=280, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
     publish = models.DateTimeField(default=timezone.now)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    status = models.CharField(
+        max_length=10, choices=STATUS_CHOICES, default='draft')
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Our custom manager.
     users_like = models.ManyToManyField(
