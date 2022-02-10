@@ -54,7 +54,7 @@ class Post(models.Model):
     class Meta:
         ordering = ('-publish',)
 
-    def get_absolute_url(self):  # new
+    def get_absolute_url(self):
         return reverse('post_detail', args=[str(self.id)])
 
 
