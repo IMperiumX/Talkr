@@ -24,7 +24,7 @@
 
 * The “Following” link in the navigation bar should send the user to a page where they can see all of the posts made by the individuals they are following.
 
-* Users are able to edit any of their own postings by clicking a "Edit" :memo: button or link.
+* Users are able to edit any of their own postings by clicking a "Edit"  button or link.
 
 
 
