@@ -36,7 +36,14 @@ A social network app that allows users to make posts, follow other users, and â€
 * Users are able to edit any of their own postings by clicking a "Edit"  button or link.
 
 
+## Preview
 
+<div width="auto" height="50%">
+
+<img src="media/landing.png"></img>
+<img src="media/user_profile.png"></img>
+
+</div>
 Settings
 --------
 
