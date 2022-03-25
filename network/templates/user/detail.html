@@ -6,7 +6,8 @@
     <a class="profile-bg main-wrapper d-block"></a>
     <div>
         <a href="#" id="profile-link">
-            <img src="{% thumbnail user.profile.photo 180x180 %}" id="profile-img">
+
+            <img src="/media/default.png" id="profile-img">
         </a>
         <div id="profile-marg">
             <span>
@@ -65,7 +66,7 @@
 {% for post in posts %}
 <div class="tweet-wrap">
     <div class="tweet-header">
-        <img src="{% thumbnail post.author.profile.photo 180x180 %}" alt="{{post.author}}" class="avator">
+        <img src="/media/default.png" alt="{{post.author}}" class="avator">
         <div class="tweet-header-info">
             {{post.author}} <a href="{% url 'user_detail' post.author %}"><span>@{{post.author}}</span></a><span>.
                 {{post.date_added|date:'l, F j'}}
