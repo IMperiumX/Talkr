@@ -1,12 +1,21 @@
 # Tweet-It
 
+A social network app that allows users to make posts, follow other users, and “like” posts.
 
-![Django Framework](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=green)
-![Python programming language](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![Git version control](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)
+### Back-end
+
+![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+
+### Front-end
+
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white)
 
 | License | GPLv3 |
 | :-----: | :---: |
@@ -33,6 +42,29 @@ Settings
 
 Moved to
 [settings](/project4/settings.py).
+
+## QuikStart
+
+- Create a Virtual environment
+
+    `python3 -m venv .venv`
+
+- Activate the Virtual environment
+
+    `source .venv/bin/activate`
+
+- Install required packages
+
+    `pip3 install -r requirements.txt`
+
+- Run Migration for Models
+
+    `python3 manage.py migrate --settings=mysite.settings.local`
+
+- Start Development Server
+
+    `python3 manage.py runserver --settings=mysite.settings.local`
+
 
 Basic Commands
 --------------
