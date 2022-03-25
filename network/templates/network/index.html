@@ -43,5 +43,8 @@
     color: #a1aac1;
 ">Go, Share us your quality thoughs</p>
 {% endfor %}
+
+{% if posts.count > 10 %}
 {% include "network/pagination.html" with page=page_obj %}
+{% endif %}
 {% endblock content %}
