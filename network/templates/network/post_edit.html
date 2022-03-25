@@ -2,9 +2,9 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <h1>Edit post</h1>
-<form action="" method="post">{% csrf_token %}
+<form action="" method="post" class="d-flex flex-column w-75 p-3">{% csrf_token %}
     {{ form|crispy }}
     <br>
-    <input class="btn btn-success ml-2" type="submit" value="Update">
+    <input class="btn btn-success ml-2 w-25" type="submit" value="Update">
 </form>
 {% endblock content %}
