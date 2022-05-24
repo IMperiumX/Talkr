@@ -130,3 +130,6 @@ ABSOLUTE_URL_OVERRIDES = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
