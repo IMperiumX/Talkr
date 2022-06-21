@@ -95,7 +95,7 @@ def create_post(request):
 
     return render(request, "network/post_new.html", {"form": CreatePostForm()})
 
-
+# TODO: Use CBV instead
 def user_detail(request, username):
     user = get_object_or_404(User, username=username, is_active=True)
     posts = user.twitter_posts.all()
