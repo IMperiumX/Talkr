@@ -19,7 +19,7 @@ from django.views.generic import DeleteView, DetailView, ListView, UpdateView
 from .forms import CreatePostForm, ProfileEditForm, UserEditForm
 from .models import Contact, Post, Profile
 
-
+# TODO: authenticate user with django app_auth
 def login_view(request):
     if request.method == "POST":
 
@@ -41,12 +41,12 @@ def login_view(request):
     else:
         return render(request, "network/login.html")
 
-
+# TODO: auth refactor2
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
 
-
+# TODO: auth refactor3
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]
