@@ -132,4 +132,8 @@ ABSOLUTE_URL_OVERRIDES = {
     "auth.user": lambda u: reverse_lazy("user_detail", args=[u.username])
 }
 
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
