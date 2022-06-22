@@ -1,0 +1,61 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Sign Up" %}</h1>
+
+    <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
+    </p>
+
+    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+        <button type="submit">{% trans "Sign Up" %} &raquo;</button>
+    </form>
+
+{% endblock %}
+{#{% extends "layout.html" %}#}
+{#{% extends "layout.html" %}#}
+{#{% block content %}#}
+{#{% if message %}#}
+{#<div>{{ message }}</div>#}
+{#{% endif %}#}
+{#<form action="{% url 'account_signup' %}" method="post" style="width: 50%; margin:auto;">#}
+{#    <h2 style="text-align: center; margin:50px">Create Account</h2>#}
+{##}
+{#    {% csrf_token %}#}
+{#    <div class="form-group">#}
+{#        <label>#}
+{#            <input class="form-control" autofocus type="text" name="username" placeholder="Username">#}
+{#        </label>#}
+{#    </div>#}
+{#    <br>#}
+{#    <div class="form-group">#}
+{#        <label>#}
+{#            <input class="form-control" type="email" name="email" placeholder="Email Address">#}
+{#        </label>#}
+{#    </div>#}
+{#    <br>#}
+{#    <div class="form-group">#}
+{#        <label>#}
+{#            <input class="form-control" type="password" name="password" placeholder="Password">#}
+{#        </label>#}
+{#    </div>#}
+{#    <br>#}
+{#    <div class="form-group">#}
+{#        <label>#}
+{#            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">#}
+{#        </label>#}
+{#    </div><br>#}
+{#    <input class="btn btn-primary d-flex justify-content-center" type="submit" value="Register" style="margin: auto;" >#}
+{#    <hr>#}
+{#    <div class="d-flex justify-content-center">Already have an account? </div>#}
+{#    <a href="{% url 'account_login' %}" class="d-flex justify-content-center">Log In here.</a>#}
+{#</form>#}
+{#{% endblock content%}#}

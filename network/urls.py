@@ -5,9 +5,6 @@ from . import views
 urlpatterns = [
     # AUTH URLs
     path("", views.PostListView.as_view(), name="index"),
-    path("accounts/login", views.login_view, name="login"),
-    path("accounts/logout", views.logout_view, name="logout"),
-    path("accoutns/register", views.register, name="register"),
     # Post related URLs
     path('like/', views.like, name='like'),
     path('post/new', views.create_post, name='post_new'),

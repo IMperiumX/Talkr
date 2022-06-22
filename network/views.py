@@ -1,13 +1,9 @@
 from itertools import chain
 
-from actions.utils import create_action
-from common.decorators import ajax_required
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.db import IntegrityError
 # Follow system packages.
 from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
@@ -16,69 +12,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic import DeleteView, DetailView, ListView, UpdateView
 
+from actions.utils import create_action
+from common.decorators import ajax_required
 from .forms import CreatePostForm, ProfileEditForm, UserEditForm
-from .models import Contact, Post, Profile
-
-# TODO: authenticate user with django app_auth
-def login_view(request):
-    if request.method == "POST":
-
-        # Attempt to sign user in
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
-
-        # Check if authentication successful
-        if user is not None:
-            login(request, user)
-            return HttpResponseRedirect(reverse("index"))
-        else:
-            return render(
-                request,
-                "network/login.html",
-                {"message": "Invalid username and/or password."},
-            )
-    else:
-        return render(request, "network/login.html")
-
-# TODO: auth refactor2
-def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect(reverse("index"))
-
-# TODO: auth refactor3
-def register(request):
-    if request.method == "POST":
-        username = request.POST["username"]
-        email = request.POST["email"]
-
-        # Ensure password matches confirmation
-        password = request.POST["password"]
-        confirmation = request.POST["confirmation"]
-        if password != confirmation:
-            return render(
-                request, "network/register.html", {
-                    "message": "Passwords must match."}
-            )
-
-        # Attempt to create new user
-        try:
-            user = User.objects.create_user(username, email, password)
-            user.save()
-            # Create the user profile
-            messages.success(request, "Account Created successfully")
-
-            Profile.objects.create(user=user)
-        except IntegrityError:
-            messages.error(request, "Error Creating your Account")
-            return render(
-                request, "network/register.html", {
-                    "message": "Username already taken."}
-            )
-        login(request, user)
-        return HttpResponseRedirect(reverse("index"))
-    else:
-        return render(request, "network/register.html")
+from .models import Contact, Post
 
 
 @login_required
@@ -95,6 +32,7 @@ def create_post(request):
 
     return render(request, "network/post_new.html", {"form": CreatePostForm()})
 
+
 # TODO: Use CBV instead
 def user_detail(request, username):
     user = get_object_or_404(User, username=username, is_active=True)
@@ -102,12 +40,13 @@ def user_detail(request, username):
     return render(request, "user/detail.html", {"user": user, "posts": posts})
 
 
+# TODO: refactor (CBV & optimize iterable flatting logic)
 @login_required
 def following_posts(request, username):
     user = User.objects.get(username=username, is_active=True)
     user_to_set = user.following.all()
-    following_posts = [user.twitter_posts.all() for user in user_to_set]
-    posts = list(chain.from_iterable(following_posts))
+    following_post = [user.twitter_posts.all() for user in user_to_set]
+    posts = list(chain.from_iterable(following_post))
 
     return render(request, "network/following.html", {"posts": posts})
 
