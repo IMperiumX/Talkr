@@ -32,6 +32,7 @@ def create_post(request):
 
     return render(request, "network/post_new.html", {"form": CreatePostForm()})
 
+
 # TODO: Use CBV instead
 def user_detail(request, username):
     user = get_object_or_404(User, username=username, is_active=True)
@@ -39,12 +40,13 @@ def user_detail(request, username):
     return render(request, "user/detail.html", {"user": user, "posts": posts})
 
 
+# TODO: refactor (CBV & optimize iterable flatting logic)
 @login_required
 def following_posts(request, username):
     user = User.objects.get(username=username, is_active=True)
     user_to_set = user.following.all()
-    following_posts = [user.twitter_posts.all() for user in user_to_set]
-    posts = list(chain.from_iterable(following_posts))
+    following_post = [user.twitter_posts.all() for user in user_to_set]
+    posts = list(chain.from_iterable(following_post))
 
     return render(request, "network/following.html", {"posts": posts})
 
