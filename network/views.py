@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-
 # Follow system packages.
 from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
@@ -15,6 +14,7 @@ from django.views.generic import DeleteView, DetailView, ListView, UpdateView
 
 from actions.utils import create_action
 from common.decorators import ajax_required
+
 from .forms import CreatePostForm, ProfileEditForm, UserEditForm
 from .models import Contact, Post
 
