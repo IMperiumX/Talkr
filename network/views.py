@@ -4,19 +4,28 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-# Follow system packages.
-from django.http import Http404, HttpResponseRedirect, JsonResponse
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse, reverse_lazy
+from django.http import Http404
+from django.http import HttpResponseRedirect
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
+from django.urls import reverse
+from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.views.generic import DeleteView, DetailView, ListView, UpdateView
+from django.views.generic import DeleteView
+from django.views.generic import DetailView
+from django.views.generic import ListView
+from django.views.generic import UpdateView
 
+from .forms import CreatePostForm
+from .forms import ProfileEditForm
+from .forms import UserEditForm
+from .models import Contact
+from .models import Post
 from actions.utils import create_action
 from common.decorators import ajax_required
-
-from .forms import CreatePostForm, ProfileEditForm, UserEditForm
-from .models import Contact, Post
+# Follow system packages.
 
 
 @login_required
