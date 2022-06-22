@@ -34,13 +34,24 @@ INSTALLED_APPS = [
     "actions",
     "django.contrib.admin",
     "django.contrib.auth",
+    'django.contrib.sites',
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    # django-allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.twitter',
+
     # 3rd Party
     "crispy_forms",
     "easy_thumbnails",
+
 ]
 
 MIDDLEWARE = [
@@ -68,6 +79,11 @@ TEMPLATES = [{
         ]
     },
 }]
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 WSGI_APPLICATION = "project4.wsgi.application"
 
@@ -124,6 +140,10 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
+
+# Django allauth config
+LOGIN_REDIRECT_URL = '/'
+SITE_ID = 1
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 LOGIN_URL = "/accounts/login"
