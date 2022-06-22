@@ -65,9 +65,9 @@ def following_posts(request, username):
 def edit(request):
     if request.method == "POST":
         user_form = UserEditForm(instance=request.user, data=request.POST)
-        profile_form = ProfileEditForm(
-            instance=request.user.profile, data=request.POST, files=request.FILES
-        )
+        profile_form = ProfileEditForm(instance=request.user.profile,
+                                       data=request.POST,
+                                       files=request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -80,7 +80,10 @@ def edit(request):
     return render(
         request,
         "network/edit.html",
-        {"user_form": user_form, "profile_form": profile_form},
+        {
+            "user_form": user_form,
+            "profile_form": profile_form
+        },
     )
 
 
@@ -100,13 +103,11 @@ def like(request):
                 is_liked = "no"
             post.save()
 
-            return JsonResponse(
-                {
-                    "like_count": post.users_like.count(),
-                    "is_liked": is_liked,
-                    "status": 201,
-                }
-            )
+            return JsonResponse({
+                "like_count": post.users_like.count(),
+                "is_liked": is_liked,
+                "status": 201,
+            })
         except:
             return JsonResponse({"error": "Post not found", "status": 404})
     return JsonResponse({}, status=400)
@@ -122,10 +123,12 @@ def user_follow(request):
         try:
             user = User.objects.get(id=user_id)
             if action == "follow":
-                Contact.objects.get_or_create(user_from=request.user, user_to=user)
+                Contact.objects.get_or_create(user_from=request.user,
+                                              user_to=user)
                 create_action(request.user, "is following", user)
             else:
-                Contact.objects.filter(user_from=request.user, user_to=user).delete()
+                Contact.objects.filter(user_from=request.user,
+                                       user_to=user).delete()
             return JsonResponse({"status": "ok"})
         except User.DoesNotExist:
             return JsonResponse({"status": "error"})
