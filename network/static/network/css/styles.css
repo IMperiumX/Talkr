@@ -275,3 +275,9 @@ a {
     font-size: 13px;
     outline: hidden;
 }
+
+.empty {
+    font-size: 48px;
+    text-align: center;
+    color: #a1aac1;
+}
