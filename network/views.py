@@ -4,18 +4,28 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-# Follow system packages.
-from django.http import Http404, HttpResponseRedirect, JsonResponse
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse, reverse_lazy
+from django.http import Http404
+from django.http import HttpResponseRedirect
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
+from django.urls import reverse
+from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.views.generic import DeleteView, DetailView, ListView, UpdateView
+from django.views.generic import DeleteView
+from django.views.generic import DetailView
+from django.views.generic import ListView
+from django.views.generic import UpdateView
 
+from .forms import CreatePostForm
+from .forms import ProfileEditForm
+from .forms import UserEditForm
+from .models import Contact
+from .models import Post
 from actions.utils import create_action
 from common.decorators import ajax_required
-from .forms import CreatePostForm, ProfileEditForm, UserEditForm
-from .models import Contact, Post
+# Follow system packages.
 
 
 @login_required
@@ -55,9 +65,9 @@ def following_posts(request, username):
 def edit(request):
     if request.method == "POST":
         user_form = UserEditForm(instance=request.user, data=request.POST)
-        profile_form = ProfileEditForm(
-            instance=request.user.profile, data=request.POST, files=request.FILES
-        )
+        profile_form = ProfileEditForm(instance=request.user.profile,
+                                       data=request.POST,
+                                       files=request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -70,7 +80,10 @@ def edit(request):
     return render(
         request,
         "network/edit.html",
-        {"user_form": user_form, "profile_form": profile_form},
+        {
+            "user_form": user_form,
+            "profile_form": profile_form
+        },
     )
 
 
@@ -78,27 +91,25 @@ def edit(request):
 @csrf_exempt
 def like(request):
     if request.method == "POST":
-        post_id = request.POST.get('id')
-        is_liked = request.POST.get('is_liked')
+        post_id = request.POST.get("id")
+        is_liked = request.POST.get("is_liked")
         try:
             post = Post.objects.get(id=post_id)
-            if is_liked == 'no':
+            if is_liked == "no":
                 post.users_like.add(request.user)
-                is_liked = 'yes'
-            elif is_liked == 'yes':
+                is_liked = "yes"
+            elif is_liked == "yes":
                 post.users_like.remove(request.user)
-                is_liked = 'no'
+                is_liked = "no"
             post.save()
 
-            return JsonResponse(
-                {
-                    'like_count': post.users_like.count(),
-                    'is_liked': is_liked,
-                    "status": 201,
-                }
-            )
+            return JsonResponse({
+                "like_count": post.users_like.count(),
+                "is_liked": is_liked,
+                "status": 201,
+            })
         except:
-            return JsonResponse({'error': "Post not found", "status": 404})
+            return JsonResponse({"error": "Post not found", "status": 404})
     return JsonResponse({}, status=400)
 
 
@@ -106,22 +117,22 @@ def like(request):
 @require_POST
 @login_required
 def user_follow(request):
-    user_id = request.POST.get('id')
-    action = request.POST.get('action')
+    user_id = request.POST.get("id")
+    action = request.POST.get("action")
     if user_id and action:
         try:
             user = User.objects.get(id=user_id)
-            if action == 'follow':
-                Contact.objects.get_or_create(
-                    user_from=request.user, user_to=user)
-                create_action(request.user, 'is following', user)
+            if action == "follow":
+                Contact.objects.get_or_create(user_from=request.user,
+                                              user_to=user)
+                create_action(request.user, "is following", user)
             else:
-                Contact.objects.filter(
-                    user_from=request.user, user_to=user).delete()
-            return JsonResponse({'status': 'ok'})
+                Contact.objects.filter(user_from=request.user,
+                                       user_to=user).delete()
+            return JsonResponse({"status": "ok"})
         except User.DoesNotExist:
-            return JsonResponse({'status': 'error'})
-    return JsonResponse({'status': 'error'})
+            return JsonResponse({"status": "error"})
+    return JsonResponse({"status": "error"})
 
 
 class PostListView(ListView):
