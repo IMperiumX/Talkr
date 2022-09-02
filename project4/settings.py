@@ -23,35 +23,32 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "13kl@xtukpwe&xj2xoysxe9_6=tf@f8ewxer5n&ifnd46+6$%8"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
 # Application definition
 
 INSTALLED_APPS = [
-    "network",
-    "actions",
     "django.contrib.admin",
     "django.contrib.auth",
-    'django.contrib.sites',
+    "django.contrib.sites",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     # django-allauth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-
-    'allauth.socialaccount.providers.github',
-    'allauth.socialaccount.providers.twitter',
-
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.github",
+    "allauth.socialaccount.providers.twitter",
     # 3rd Party
     "crispy_forms",
     "easy_thumbnails",
-
+    # My apps
+    "network",
+    "actions",
 ]
 
 MIDDLEWARE = [
@@ -66,23 +63,25 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "project4.urls"
 
-TEMPLATES = [{
-    "BACKEND": "django.template.backends.django.DjangoTemplates",
-    "DIRS": [],
-    "APP_DIRS": True,
-    "OPTIONS": {
-        "context_processors": [
-            "django.template.context_processors.debug",
-            "django.template.context_processors.request",
-            "django.contrib.auth.context_processors.auth",
-            "django.contrib.messages.context_processors.messages",
-        ]
-    },
-}]
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ]
+        },
+    }
+]
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
 WSGI_APPLICATION = "project4.wsgi.application"
@@ -104,22 +103,13 @@ AUTH_USER_MODEL = "auth.user"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME":
-        ("django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-         )
+        "NAME": (
+            "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+        )
     },
-    {
-        "NAME":
-        "django.contrib.auth.password_validation.MinimumLengthValidator"
-    },
-    {
-        "NAME":
-        "django.contrib.auth.password_validation.CommonPasswordValidator"
-    },
-    {
-        "NAME":
-        "django.contrib.auth.password_validation.NumericPasswordValidator"
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 # Internationalization
@@ -142,7 +132,7 @@ STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
 # Django allauth config
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = "/"
 SITE_ID = 1
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
@@ -152,7 +142,7 @@ ABSOLUTE_URL_OVERRIDES = {
     "auth.user": lambda u: reverse_lazy("user_detail", args=[u.username])
 }
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
