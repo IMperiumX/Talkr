@@ -8,4 +8,5 @@ def ajax_required(f):
         if not request.is_ajax():
             return HttpResponseBadRequest()
         return f(request, *args, **kwargs)
+
     return wrap

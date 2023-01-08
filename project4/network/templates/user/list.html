@@ -1,5 +1,4 @@
 {% extends "layout.html" %}
-{% load thumbnail %}
 {% block title %}People{% endblock %}
 {% block content %}
 <h1>People</h1>
@@ -7,7 +6,6 @@
     {% for user in users %}
     <div>
         <a href="{{ user.get_absolute_url }}">
-            <img src="{% thumbnail user.profile.photo 180x180 %}">
         </a>
         <div class="info">
             <a href="{{ user.get_absolute_url }}" class="title">

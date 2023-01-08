@@ -1,6 +1,6 @@
 from itertools import chain
 
-from actions.utils import create_action
+from actionsapp.utils import create_action
 from common.decorators import ajax_required
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -65,7 +65,7 @@ class UserDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["posts"] = self.object.twitter_posts.published()
+        context["posts"] = self.objects.twitter_posts.published()
         return context
 
 
