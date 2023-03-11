@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.sites",
+    "django.contrib.sites",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
@@ -43,8 +44,14 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.twitter",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.github",
+    "allauth.socialaccount.providers.twitter",
     # 3rd Party
     "crispy_forms",
+    "easy_thumbnails",
     # "easy_thumbnails",
     # My apps
     "network",
@@ -80,6 +87,8 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 )
@@ -133,6 +142,7 @@ MEDIA_URL = "/media/"
 
 # Django allauth config
 LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/"
 SITE_ID = 1
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
@@ -142,6 +152,7 @@ ABSOLUTE_URL_OVERRIDES = {
     "auth.user": lambda u: reverse_lazy("user_detail", args=[u.username])
 }
 
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
