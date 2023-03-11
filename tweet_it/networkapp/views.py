@@ -1,14 +1,12 @@
 from itertools import chain
 
 from actionsapp.utils import create_action
-from common.decorators import ajax_required
-from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
@@ -20,6 +18,8 @@ from django.views.generic import (
     ListView,
     UpdateView,
 )
+
+from tweet_it.utils.decorators import ajax_required
 
 from .forms import CreatePostForm
 from .models import Contact, Post
