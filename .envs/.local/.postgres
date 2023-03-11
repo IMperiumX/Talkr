@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=tweet_it
+POSTGRES_USER=nZHSJtyporOEGfXsJTOHEpqWuJfahLFF
+POSTGRES_PASSWORD=EIFAjCn1jxUd5CyGLWTNl0h3X6BQHpuumSZreCLfLfAjKPeeV5WNH7RFekdwRgWT
