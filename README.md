@@ -168,7 +168,7 @@ Basic Commands
 ### Setting Up Your Users
 
 -   To create a **normal user account**, just go to Sign Up and fill out
-    the form. Once you submit it, you\'ll see a message that your account cerates succesfully. 
+    the form. Once you submit it, you\'ll see a message that your account cerates succesfully.
 
 -   To create an **superuser account**, use this command:
 

@@ -11,11 +11,7 @@ from django.urls import reverse
 from tweet_it.users.forms import UserAdminChangeForm
 from tweet_it.users.models import User
 from tweet_it.users.tests.factories import UserFactory
-from tweet_it.users.views import (
-    UserRedirectView,
-    UserUpdateView,
-    user_detail_view,
-)
+from tweet_it.users.views import UserRedirectView, UserUpdateView, user_detail_view
 
 pytestmark = pytest.mark.django_db
 

@@ -73,7 +73,6 @@ user_detail_view = UserDetailView.as_view()
 
 
 class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-
     model = User
     fields = ["date_of_birth", "photo", "username", "email"]
     success_message = _("Information successfully updated")
