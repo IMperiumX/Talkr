@@ -3,7 +3,7 @@
 
 <div align="center">
 
-  <img src="./images/logo.svg" alt="logo" width="200" height="auto" />
+  <img src="./tweet_it/networkapp/static/network/logo.png" alt="logo" width="200" height="auto" />
   <h1>Tweet-It</h1>
 
   <p>
@@ -82,7 +82,7 @@ People on Tweet it knows it first!
 ### :camera: Screenshots
 
 <div align="center">
-  <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
+  <img src="./tweet_it/static/images/landing.png" alt="screenshot" />
 </div>
 
 <!-- TechStack -->
