@@ -4,9 +4,8 @@ from django.core.files import File
 from django_lifecycle import LifecycleModelMixin, hook
 from django_lifecycle.hooks import AFTER_CREATE, BEFORE_DELETE
 
-
 from common.utils import get_thumbnail_from_video, get_unique_string
-from network.conf import LIKE_REACTION, VIDEO
+from network.constants import *
 
 
 class OwnerPermission:
@@ -93,19 +92,25 @@ class PostMixin(
             error: if the user is not allowed to like the post
         """
         if not user.is_authenticated:
-            self.postreaction_set.create(user=None, reaction=LIKE_REACTION)
+            self.reactions.create(
+                user=None,
+                reaction=LIKE,
+            )
             return True, None
 
         if self.is_liked_by(user):
-            self.postreaction_set.filter(user_id=user.id).delete()
+            self.reactions.filter(user_id=user.id).delete()
             return False, None
 
-        self.postreaction_set.create(user=user, reaction=LIKE_REACTION)
+        self.reactions.create(
+            user=user,
+            reaction=LIKE,
+        )
         return True, None
 
     @property
     def life_reaction_count(self):
-        return self.postreaction_set.all().count()
+        return self.reactions.all().count()
 
     @property
     def is_video(self):
@@ -135,9 +140,6 @@ class PostReactionMixin(LifecycleModelMixin, OwnerPermission):
     def before_reaction_delete(self):
         self.post.reactions_count = self.post.life_reaction_count - 1
         self.post.save()
-
-
-""" Post Comment """
 
 
 class CommentMixin(LifecycleModelMixin, OwnerPermission):
