@@ -58,49 +58,49 @@ Talkr is an open-source backend project designed to power a Twitter-like social 
 
   **Core Functionality:**
 
-  * **User Authentication & Authorization:**
-    * Email registration and verification
-    * Secure password hashing
-    * Session management
-    * Role-based permissions (admin, user)
-  * **Post Creation & Management:**
-    * Text-based posts with optional media uploads
-    * Post editing and deletion
-    * Public and private post visibility
-  * **Following & Timeline:**
-    * User following system
-    * Personalized timeline displaying posts from followed users
-  * **Likes & Retweets:**
-    * Post liking functionality
-    * Post retweeting
-  * **Notifications:**
-    * Real-time notifications for likes, retweets, replies, and mentions
+* **User Authentication & Authorization:**
+  * Email registration and verification
+  * Secure password hashing
+  * Session management
+  * Role-based permissions (admin, user)
+* **Post Creation & Management:**
+  * Text-based posts with optional media uploads
+  * Post editing and deletion
+  * Public and private post visibility
+* **Following & Timeline:**
+  * User following system
+  * Personalized timeline displaying posts from followed users
+* **Likes & Retalks:**
+  * Post liking functionality
+  * Post retalking
+* **Notifications:**
+  * Real-time notifications for likes, retalks, replies, and mentions
 
   **Additional Features:**
 
-  * **Direct Messages (DMs):**
-    * Private messaging between users
-    * Group DM functionality
-  * **Hashtags & Trending Topics:**
-    * Hashtag support for post categorization and discoverability
-    * Trending topics based on hashtag usage
-  * **Profile Customization:**
-    * Profile pictures
-    * User bios
-    * Customizable background images
+* **Direct Messages (DMs):**
+  * Private messaging between users
+  * Group DM functionality
+* **Hashtags & Trending Topics:**
+  * Hashtag support for post categorization and discoverability
+  * Trending topics based on hashtag usage
+* **Profile Customization:**
+  * Profile pictures
+  * User bios
+  * Customizable background images
 
   **Technical Details:**
 
-  * **Framework:** Django REST Framework
-  * **Database:** PostgreSQL (recommended) or MongoDB
-  * **Authentication:** Django's built-in authentication system or Django REST Auth
-  * **Media Storage:** Amazon S3, Cloudinary, or similar cloud storage service
-  * **Real-Time Communication:** WebSockets or a real-time messaging service (e.g., Pusher, PubNub)
+* **Framework:** Django REST Framework
+* **Database:** PostgreSQL (recommended) or MongoDB
+* **Authentication:** Django's built-in authentication system or Django REST Auth
+* **Media Storage:** Amazon S3, Cloudinary, or similar cloud storage service
+* **Real-Time Communication:** WebSockets or a real-time messaging service (e.g., Pusher, PubNub)
 
 ### Roadmap
 
 * **Phase 1 (MVP):**
-  * Implement core functionality (user authentication, posts, following, timeline, likes, retweets)
+  * Implement core functionality (user authentication, posts, following, timeline, likes, retalks)
   * Basic search functionality
 * **Phase 2 (Engagement):**
   * Direct messaging (private and group)
