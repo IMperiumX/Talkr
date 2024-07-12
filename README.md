@@ -1,92 +1,148 @@
-# Tweet-It
 
-A social network app that allows users to make posts, follow other users, and “like” posts.
+<center>
+ <h1> Talkr </h1>
+ <b> A Scalable and Engaging Twitter Clone Backend </b>
 
-### Back-end
+</center>
 
-![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
-![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+<a name="readme-top"></a>
 
-### Front-end
+<div align="center">
 
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white)
+  <img src="https://github.com/IMperiumX/logos/blob/main/Talkr/logo.png?raw=true" alt="logo" width="200" height="auto" />
+  <h1>Talkr</h1>
 
-| License | GPLv3 |
-| :-----: | :---: |
+  <p>
+    People on Talkr knows it first!
+  </p>
 
+<!-- Badges -->
+<p>
+  <a href="https://github.com/ImperiumX/talkr/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/ImperiumX/talkr" alt="contributors" />
+  </a>
+  <a href="">
+    <img src="https://img.shields.io/github/last-commit/ImperiumX/talkr" alt="last update" />
+  </a>
+  <a href="https://github.com/ImperiumX/talkr/network/members">
+    <img src="https://img.shields.io/github/forks/ImperiumX/talkr" alt="forks" />
+  </a>
+  <a href="https://github.com/ImperiumX/talkr/stargazers">
+    <img src="https://img.shields.io/github/stars/ImperiumX/talkr" alt="stars" />
+  </a>
+  <a href="https://github.com/ImperiumX/talkr/issues/">
+    <img src="https://img.shields.io/github/issues/ImperiumX/talkr" alt="open issues" />
+  </a>
+  <a href="https://github.com/ImperiumX/talkr/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/ImperiumX/talkr.svg" alt="license" />
+  </a>
+</p>
 
-# Key Functionalties
-
-* A social network app that allows users :hear_no_evil: to make posts, follow other users, and “like” :heartbeat: posts.
-
-* Signed-in users are able to create a new text-based post by typing into a text box and then clicking a button to submit it .
-
-* The “All Posts” link in the navigation bar send the user to a page where they may see all of the posts from all users, in chronological order.
-
-* In profile detail page you can see the user's total number of followers as well as the number of individuals he or she follows and a user As a matter of course can't follow onself.
-
-* The “Following” link in the navigation bar should send the user to a page where they can see all of the posts made by the individuals they are following.
-
-* Users are able to edit any of their own postings by clicking a "Edit"  button or link.
-
-
-## Preview
-
-<div width="auto" height="50%">
-
-<img src="media/landing.png"></img>
-<img src="media/user_profile.png"></img>
+<h4>
+    <a href="https://github.com/ImperiumX/talkr/">View Demo</a>
+  <span> · </span>
+    <a href="https://github.com/ImperiumX/talkr">Documentation</a>
+  <span> · </span>
+    <a href="https://github.com/ImperiumX/talkr/issues/">Report Bug</a>
+  <span> · </span>
+    <a href="https://github.com/ImperiumX/talkr/issues/">Request Feature</a>
+  </h4>
 
 </div>
 
-Settings
---------
+<br/>
 
-Moved to
-[settings](/project4/settings.py).
+Talkr is an open-source backend project designed to power a Twitter-like social media platform. Built with Django REST Framework, it prioritizes core functionality, user engagement, and scalability.
 
-## QuikStart
+### Features
 
-- Create a Virtual environment
+  **Core Functionality:**
 
-    `python3 -m venv .venv`
+  * **User Authentication & Authorization:**
+    * Email registration and verification
+    * Secure password hashing
+    * Session management
+    * Role-based permissions (admin, user)
+  * **Post Creation & Management:**
+    * Text-based posts with optional media uploads
+    * Post editing and deletion
+    * Public and private post visibility
+  * **Following & Timeline:**
+    * User following system
+    * Personalized timeline displaying posts from followed users
+  * **Likes & Retweets:**
+    * Post liking functionality
+    * Post retweeting
+  * **Notifications:**
+    * Real-time notifications for likes, retweets, replies, and mentions
 
-- Activate the Virtual environment
+  **Additional Features:**
 
-    `source .venv/bin/activate`
+  * **Direct Messages (DMs):**
+    * Private messaging between users
+    * Group DM functionality
+  * **Hashtags & Trending Topics:**
+    * Hashtag support for post categorization and discoverability
+    * Trending topics based on hashtag usage
+  * **Profile Customization:**
+    * Profile pictures
+    * User bios
+    * Customizable background images
 
-- Install required packages
+  **Technical Details:**
 
-    `pip3 install -r requirements.txt`
+  * **Framework:** Django REST Framework
+  * **Database:** PostgreSQL (recommended) or MongoDB
+  * **Authentication:** Django's built-in authentication system or Django REST Auth
+  * **Media Storage:** Amazon S3, Cloudinary, or similar cloud storage service
+  * **Real-Time Communication:** WebSockets or a real-time messaging service (e.g., Pusher, PubNub)
 
-- Run Migration for Models
+### Roadmap
 
-    `python3 manage.py migrate --settings=mysite.settings.local`
+* **Phase 1 (MVP):**
+  * Implement core functionality (user authentication, posts, following, timeline, likes, retweets)
+  * Basic search functionality
+* **Phase 2 (Engagement):**
+  * Direct messaging (private and group)
+  * Hashtag support and trending topics
+  * Profile customization
+* **Phase 3 (Scalability & Security):**
+  * Optimize database performance for scalability
+  * Implement robust security measures (data encryption, XSS prevention, SQL injection prevention)
 
-- Start Development Server
+### Installation
 
-    `python3 manage.py runserver --settings=mysite.settings.local`
+1. Clone the repository:
 
+   ```bash
+   git clone https://github.com/yourusername/ChirperAPI.git
+   ```
 
-Basic Commands
---------------
+2. Navigate to the project directory:
 
-### Setting Up Your Users
+   ```bash
+   cd ChirperAPI
+   ```
 
--   To create a **normal user account**, just go to Sign Up and fill out
-    the form. Once you submit it, you\'ll see a message that your account cerates succesfully. 
+3. Install the required dependencies:
 
--   To create an **superuser account**, use this command:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-        $ python manage.py createsuperuser
+4. Apply the migrations:
 
-For convenience, you can keep your normal user logged in on Chrome and
-your superuser logged in on Firefox (or similar), so that you can see
-how the site behaves for both kinds of users.
+   ```bash
+   python manage.py migrate
+   ```
 
+5. Start the development server:
+
+   ```bash
+   python manage.py runserver
+   ```
+
+### Important Considerations
+
+* **Scalability & Security:** Architectural design focused on handling growth and ensuring data security.
+* **API Design:** A well-documented RESTful API for easy integration with front-end applications.

@@ -1,0 +1,8 @@
+openapi: 3.0.3
+info:
+  title: Talkr API
+  version: 1.0.0
+  description: open-source backend project designed to power a Twitter-like social
+    media platform.
+paths: {}
+components: {}
