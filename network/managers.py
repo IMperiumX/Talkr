@@ -2,13 +2,12 @@ from django.db import models
 from django.db.models import Count, Q, Subquery, Sum
 
 from common.queryset_utils import QuerySetDateHelper
-from network.conf import VIDEO
+from network.constants import *
 
 
 class PostQuerySet(QuerySetDateHelper, models.QuerySet):
     def published(self):
-        from network.models import Post
-        return self.filter(status=Post.StatusType.PUBLISHED)
+        return self.filter(status=PUBLISHED)
 
     def filter_user_posts(self, user_id):
         return self.filter(Q(user_id=user_id) | Q(mentions__id=user_id))
