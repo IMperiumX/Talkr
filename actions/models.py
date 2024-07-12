@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from model_utils.models import TimeStampedModel
 
 
 class Action(models.Model):
@@ -24,3 +26,22 @@ class Action(models.Model):
 
     class Meta:
         ordering = ("-created",)
+
+    def __str__(self):
+        return f"{self.user} {self.verb} {self.target}"
+
+
+class Block(TimeStampedModel):
+    blocker = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="blocker",
+        on_delete=models.CASCADE,
+    )
+    blocked = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="blocked",
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        return f"{self.blocker} blocked {self.blocked}"

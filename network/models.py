@@ -4,19 +4,37 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
-from django.utils import timezone
+from model_utils import Choices
+from model_utils.fields import MonitorField, StatusField
+from model_utils.models import TimeStampedModel
 
 from common.utils import file_upload
-from network.conf import LIKE_REACTION
+from network.constants import *
 from network.managers import CommentManager, PostManager, PostReactionManager
 from network.model_mixins import CommentMixin, PostMixin, PostReactionMixin
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+class Profile(TimeStampedModel):
     date_of_birth = models.DateField(blank=True, null=True)
-    photo = models.ImageField(default="default.png", upload_to="users/%Y/%m/%d/")
+    bio = models.TextField(blank=True, null=True)
+    photo = models.ImageField(
+        default="default.png",
+        upload_to=partial(
+            file_upload,
+            "users/%Y/%m/%d/",
+        ),
+    )
+    background_image = models.ImageField(
+        upload_to=partial(file_upload, "background_images"),
+        blank=True,
+        null=True,
+    )
     is_active = models.BooleanField(default=True)
+
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
 
     def __str__(self):
         return f"Profile for user {self.user.username}"
@@ -25,32 +43,20 @@ class Profile(models.Model):
         return reverse("user_detail", args=[str(self.id)])
 
 
-class PublishedQuerySet(models.QuerySet):
+class Post(PostMixin, TimeStampedModel):
+    STATUS = Choices(DRAFT, PUBLISHED)
+    POST_TYPES = Choices(TEXT, VIDEO)
 
-    use_for_related_fields = True
-
-    def published(self):
-        return self.filter(status="published")
-
-
-class Post(PostMixin, models.Model):
-    class StatusType(models.TextChoices):
-        DRAFT = "draft", "Draft"
-        PUBLISHED = "published", "Published"
-
-    # fields
     body = models.TextField(max_length=280, null=True)
-    date_added = models.DateTimeField(auto_now_add=True)
-    publish = models.DateTimeField(default=timezone.now)
-    status = models.CharField(
-        max_length=10,
-        choices=StatusType.choices,
-        default=StatusType.DRAFT,
+    media = models.FileField(blank=True, null=True)
+    total_likes = models.PositiveIntegerField(
+        db_index=True,
+        default=0,
     )
-    users_like = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name="liked_user", blank=True
-    )
-    total_likes = models.PositiveIntegerField(db_index=True, default=0)
+    status = StatusField(default=DRAFT)
+    type = StatusField(choices_name="POST_TYPES", default=TEXT)
+    published = MonitorField(monitor="status", when=[PUBLISHED])
+    is_private = models.BooleanField(default=False)
 
     # relations
     author = models.ForeignKey(
@@ -59,6 +65,11 @@ class Post(PostMixin, models.Model):
         related_name="twitter_posts",
         null=True,
     )
+    liked_users = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name="liked_posts",
+        blank=True,
+    )
 
     objects = PostManager()
 
@@ -66,50 +77,99 @@ class Post(PostMixin, models.Model):
         return self.body[:50] + "..."
 
     class Meta:
-        ordering = ("-publish",)
+        ordering = ("-published",)
 
     def get_absolute_url(self):
         return reverse("post_detail", args=[str(self.id)])
 
 
-class PostReaction(PostReactionMixin, models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True
-    )
-    post = models.ForeignKey("Post", on_delete=models.CASCADE)
-    # reactions
-    LIKE_REACTION = LIKE_REACTION
-    reaction = models.CharField(
-        max_length=20,
-        choices=((LIKE_REACTION, LIKE_REACTION),),
-    )
-    created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
+class PostReaction(PostReactionMixin, TimeStampedModel):
+    REACTIONS = Choices(LIKE, LOVE, LAUGHT, SAD, CARE, ANGRY)
 
-    # managers
+    type = StatusField(choices_name="REACTIONS")
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    post = models.ForeignKey(
+        "Post",
+        on_delete=models.CASCADE,
+        related_name="reactions",
+    )
+
     objects = PostReactionManager()
 
     class Meta:
         unique_together = (("user", "post"),)
 
+    def __str__(self):
+        return f"{self.user} reacted {self.type} on {self.post}"
+
+
+class Retalk(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    original_post = models.ForeignKey(
+        Post,
+        related_name="original_post",
+        on_delete=models.CASCADE,
+    )
+    retalked_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    retalk = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="retalks",
+    )
+
+    def __str__(self):
+        return f"{self.retalked_by} Retalked {self.original_post}"
+
 
 class PostView(models.Model):
-    post = models.ForeignKey("Post", on_delete=models.CASCADE, related_name="post_view")
     created_at = models.DateField(auto_now=False, auto_now_add=True)
 
+    post = models.ForeignKey(
+        "Post",
+        on_delete=models.CASCADE,
+        related_name="post_view",
+    )
 
-class Comment(CommentMixin, models.Model):
-    post = models.ForeignKey("Post", on_delete=models.CASCADE, related_name="comment")
+    def __str__(self):
+        return f"{self.post} Viewed"
+
+
+class Comment(CommentMixin, TimeStampedModel):
+    body = models.TextField()
+    media = models.ImageField(
+        upload_to=partial(file_upload, "comments_media"),
+        null=True,
+        blank=True,
+    )
+
+    # relations
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comment"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="comments",
     )
-    picture = models.ImageField(
-        upload_to=partial(file_upload, "comment_pictures"), null=True, blank=True
+    post = models.ForeignKey(
+        "network.Post",
+        on_delete=models.CASCADE,
+        related_name="comments",
     )
-    text = models.TextField()
-    created_at = models.DateField(auto_now=False, auto_now_add=True)
 
-    # managers
     objects = CommentManager()
+
+    def __str__(self):
+        return f"{self.user} Comment on {self.post}"
 
 
 class Contact(models.Model):
@@ -117,15 +177,17 @@ class Contact(models.Model):
     and get the time The Realationship was Created
     """
 
+    created = models.DateTimeField(
+        auto_now_add=True,
+        db_index=True,
+    )  # Using "db_index" >> improve query performance when ordering QuerySets by this field.
+
     user_from = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name="rel_from_set", on_delete=models.CASCADE
     )
     user_to = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name="rel_to_set", on_delete=models.CASCADE
     )
-    created = models.DateTimeField(
-        auto_now_add=True, db_index=True
-    )  # Using "db_index" >> improve query performance when ordering QuerySets by this field.
 
     class Meta:
         ordering = ("-created",)

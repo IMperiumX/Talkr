@@ -8,7 +8,7 @@
                 <div class="tweet-header-info">
                     {{ post.author }} <a
                         href="{% url 'user_detail' post.author %}"><span>@{{ post.author.username }}</span></a><span>.
-                {{ post.date_added|date:'l, F j' }}
+                {{ post.created|date:'l, F j' }}
             </span>
                     <hr>
                     <p>{{ post.body|linebreaks }}</p>
