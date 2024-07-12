@@ -12,6 +12,7 @@ from common.utils import file_upload
 from network.constants import *
 from network.managers import CommentManager, PostManager, PostReactionManager
 from network.model_mixins import CommentMixin, PostMixin, PostReactionMixin
+from taggit.managers import TaggableManager
 
 
 class Profile(TimeStampedModel):
@@ -71,6 +72,7 @@ class Post(PostMixin, TimeStampedModel):
         blank=True,
     )
 
+    tags = TaggableManager()
     objects = PostManager()
 
     def __str__(self):

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "drf_spectacular",
     "django_extensions",
+    "taggit",
     # "easy_thumbnails",
     # My apps
     "network",
@@ -172,3 +173,7 @@ ABSOLUTE_URL_OVERRIDES = {
 
 # Django Crispy Forms
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+# Django taggit
+TAGGIT_CASE_INSENSITIVE = True
+TAGGIT_STRIP_UNICODE_WHEN_SLUGIFYING = True

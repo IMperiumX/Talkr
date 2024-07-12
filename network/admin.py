@@ -48,7 +48,7 @@ class PostAdmin(admin.ModelAdmin):
         'is_private',
         'author',
     )
-    raw_id_fields = ('liked_users',)
+    raw_id_fields = ('liked_users', 'tags')
 
 
 @admin.register(PostReaction)
