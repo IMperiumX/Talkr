@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "django_extensions",
     "taggit",
+    "rest_framework",
+    "silk",
     # "easy_thumbnails",
     # My apps
     "network",
@@ -65,6 +67,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "silk.middleware.SilkyMiddleware",
 ]
 
 ROOT_URLCONF = "talkr.urls"
@@ -177,3 +180,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 # Django taggit
 TAGGIT_CASE_INSENSITIVE = True
 TAGGIT_STRIP_UNICODE_WHEN_SLUGIFYING = True
+
+
+# Djagno Silk
