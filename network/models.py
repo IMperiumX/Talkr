@@ -159,8 +159,10 @@ class Comment(CommentMixin, TimeStampedModel):
     # relations
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="comments",
+        null=True,
+        blank=True,
     )
     post = models.ForeignKey(
         "network.Post",
@@ -185,10 +187,14 @@ class Contact(models.Model):
     )  # Using "db_index" >> improve query performance when ordering QuerySets by this field.
 
     user_from = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name="rel_from_set", on_delete=models.CASCADE
+        settings.AUTH_USER_MODEL,
+        related_name="rel_from_set",
+        on_delete=models.CASCADE,
     )
     user_to = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name="rel_to_set", on_delete=models.CASCADE
+        settings.AUTH_USER_MODEL,
+        related_name="rel_to_set",
+        on_delete=models.CASCADE,
     )
 
     class Meta:
@@ -203,6 +209,9 @@ user_model = get_user_model()
 user_model.add_to_class(
     "following",
     models.ManyToManyField(
-        "self", through=Contact, related_name="followers", symmetrical=False
+        "self",
+        through=Contact,
+        related_name="followers",
+        symmetrical=False,
     ),
 )
