@@ -12,4 +12,7 @@ router.register("postview", views.PostViewViewSet)
 router.register("comment", views.CommentViewSet)
 router.register("contact", views.ContactViewSet)
 
+router.register("users", views.UserViewSet)
+router.register("groups", views.GroupViewSet)
+
 urlpatterns = router.urls

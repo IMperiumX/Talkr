@@ -1,6 +1,20 @@
-from rest_framework.viewsets import ModelViewSet
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
+from rest_framework import permissions, viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.viewsets import ModelViewSet
 
+from network.api.serializers import (
+    CommentSerializer,
+    ContactSerializer,
+    GroupSerializer,
+    PostReactionSerializer,
+    PostSerializer,
+    PostViewSerializer,
+    ProfileSerializer,
+    RetalkSerializer,
+    UserSerializer,
+)
 from network.models import (
     Comment,
     Contact,
@@ -10,15 +24,28 @@ from network.models import (
     Profile,
     Retalk,
 )
-from network.api.serializers import (
-    CommentSerializer,
-    ContactSerializer,
-    PostReactionSerializer,
-    PostSerializer,
-    PostViewSerializer,
-    ProfileSerializer,
-    RetalkSerializer,
-)
+
+User = get_user_model()
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+
+    queryset = User.objects.all().order_by("-date_joined")
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+
+    queryset = Group.objects.all().order_by("name")
+    serializer_class = GroupSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class ProfileViewSet(ModelViewSet):

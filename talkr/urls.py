@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
@@ -29,6 +29,7 @@ urlpatterns = [
     # Local apps
     path("", include("network.urls")),
     path("api/", include("talkr.api_router")),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     # API schema and documentation
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
