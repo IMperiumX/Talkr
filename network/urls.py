@@ -1,6 +1,7 @@
+from network import views
+
 from django.urls import path
 
-from . import views
 
 urlpatterns = [
     # AUTH URLs

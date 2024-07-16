@@ -26,7 +26,10 @@ from drf_spectacular.views import (
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
+    # Local apps
     path("", include("network.urls")),
+    path("api/", include("talkr.api_router")),
+    # API schema and documentation
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
     path(
