@@ -110,6 +110,10 @@ Talkr is an open-source backend project designed to power a Twitter-like social 
   * Optimize database performance for scalability
   * Implement robust security measures (data encryption, XSS prevention, SQL injection prevention)
 
+### Architecture Overview
+
+![Architecture Overview](https://github.com/IMperiumX/logos/blob/main/Talkr/arch.svg?raw=true)
+
 ### Installation
 
 1. Clone the repository:
